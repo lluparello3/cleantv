@@ -1,4 +1,4 @@
-# CleanTV
+# CleanTV — Casa Ciompi
 
 Launcher minimale per Chromecast con Google TV / Google TV Streamer: solo una griglia delle app installate, senza righe di contenuti, suggerimenti o pubblicità.
 

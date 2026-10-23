@@ -29,6 +29,15 @@ jobs:
         with:
           gradle-version: "8.7"
 
+      # Fonts (SIL Open Font License) from the Google Fonts repository.
+      - name: Download fonts
+        run: |
+          mkdir -p app/src/main/res/font
+          base=https://github.com/google/fonts/raw/main/ofl
+          curl -fsSL -o app/src/main/res/font/casa_script.ttf "$base/dancingscript/DancingScript%5Bwght%5D.ttf"
+          curl -fsSL -o app/src/main/res/font/casa_serif.ttf "$base/lora/Lora%5Bwght%5D.ttf"
+          curl -fsSL -o app/src/main/res/font/casa_serif_italic.ttf "$base/lora/Lora-Italic%5Bwght%5D.ttf"
+
       - run: gradle assembleDebug --no-daemon
 
       - run: cp app/build/outputs/apk/debug/app-debug.apk CleanTV.apk

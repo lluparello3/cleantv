@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <ImageView
@@ -15,10 +16,11 @@
         android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
+        android:fontFamily="@font/casa_serif"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@color/label"
+        android:textColor="@color/label_muted"
         android:textSize="14sp" />
 </LinearLayout>

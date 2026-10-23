@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg">#0E0F12</color>
-    <color name="tile">#1C1E24</color>
-    <color name="label">#D9DCE3</color>
-    <color name="focus">#FFFFFF</color>
+    <!-- Warm "living room at night" palette: chestnut wood, embers, cream -->
+    <color name="bg_top">#2E1C13</color>
+    <color name="bg_bottom">#120A07</color>
+    <color name="tile">#36251B</color>
+    <color name="title">#FBEBD6</color>
+    <color name="label">#F3E2CC</color>
+    <color name="label_muted">#B39A82</color>
+    <color name="focus">#F4C38B</color>
+    <color name="ember">#E0884A</color>
 </resources>

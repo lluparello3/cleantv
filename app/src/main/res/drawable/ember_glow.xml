@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Two soft light pools, like a lamp in the corner and the glow of a fireplace -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerX="0.88"
+                android:centerY="0.05"
+                android:endColor="#00E0884A"
+                android:gradientRadius="75%p"
+                android:startColor="#59E0884A"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:centerX="0.05"
+                android:centerY="1.0"
+                android:endColor="#00B5523A"
+                android:gradientRadius="60%p"
+                android:startColor="#38B5523A"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

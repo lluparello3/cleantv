@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CleanTV</string>
+    <string name="app_name">Casa Ciompi</string>
+    <string name="home_title">Casa Ciompi</string>
     <string name="settings">Impostazioni</string>
+    <string name="greeting_morning">Buongiorno — il caffè è pronto, cosa mettiamo su?</string>
+    <string name="greeting_afternoon">Buon pomeriggio — mettetevi comodi.</string>
+    <string name="greeting_evening">Buonasera — coperta, divano… cosa guardiamo stasera?</string>
+    <string name="greeting_night">Buonanotte — ancora un episodio, poi a letto.</string>
     <string name="hide_title">Nascondere %1$s?</string>
     <string name="hide_message">L\'app resta installata, sparisce solo dalla griglia. Tieni premuto OK su Impostazioni per mostrare di nuovo le app nascoste.</string>
     <string name="hide">Nascondi</string>
