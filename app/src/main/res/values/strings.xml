@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CleanTV</string>
+    <string name="settings">Impostazioni</string>
+    <string name="hide_title">Nascondere %1$s?</string>
+    <string name="hide_message">L\'app resta installata, sparisce solo dalla griglia. Tieni premuto OK su Impostazioni per mostrare di nuovo le app nascoste.</string>
+    <string name="hide">Nascondi</string>
+    <string name="unhide_title">Mostrare tutte le app nascoste?</string>
+    <string name="unhide">Mostra tutte</string>
+    <string name="cancel">Annulla</string>
+    <string name="launch_failed">Impossibile aprire %1$s</string>
+</resources>
