@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
     private AppAdapter adapter;
     private SharedPreferences prefs;
     private int selectedPosition = 0;
+    private String settingsPackage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selectedPosition = -1;
+                // Fired while the grid is still empty: keep the last position for after loading.
                 refreshHighlight();
             }
         });
@@ -105,12 +106,8 @@ public class MainActivity extends Activity {
             List<AppEntry> apps = loadApps(hidden);
             ui.post(() -> {
                 adapter.setItems(apps);
-                if (selectedPosition >= apps.size()) {
-                    selectedPosition = apps.size() - 1;
-                }
-                if (selectedPosition >= 0) {
-                    grid.setSelection(selectedPosition);
-                }
+                selectedPosition = Math.max(0, Math.min(selectedPosition, apps.size() - 1));
+                grid.setSelection(selectedPosition);
                 refreshHighlight();
             });
         });
@@ -118,6 +115,8 @@ public class MainActivity extends Activity {
 
     private List<AppEntry> loadApps(Set<String> hidden) {
         PackageManager pm = getPackageManager();
+        ResolveInfo settingsInfo = pm.resolveActivity(new Intent(Settings.ACTION_SETTINGS), 0);
+        settingsPackage = settingsInfo != null ? settingsInfo.activityInfo.packageName : null;
         Map<String, AppEntry> byPackage = new LinkedHashMap<>();
         // TV apps first so their wide banner wins over the phone-style icon.
         collect(pm, Intent.CATEGORY_LEANBACK_LAUNCHER, true, hidden, byPackage);
@@ -127,11 +126,19 @@ public class MainActivity extends Activity {
         Collator collator = Collator.getInstance();
         apps.sort((a, b) -> collator.compare(a.label, b.label));
 
-        Intent settings = new Intent(Settings.ACTION_SETTINGS)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        apps.add(new AppEntry(null, getString(R.string.settings),
-                getDrawable(android.R.drawable.ic_menu_preferences), false, settings));
+        // Most TVs already list their Settings app; add our own tile only when it is missing.
+        if (settingsPackage == null || !byPackage.containsKey(settingsPackage)) {
+            Intent settings = new Intent(Settings.ACTION_SETTINGS)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            apps.add(new AppEntry(null, getString(R.string.settings),
+                    getDrawable(android.R.drawable.ic_menu_preferences), false, settings));
+        }
         return apps;
+    }
+
+    /** The Settings tile can't be hidden; long-pressing it offers to show hidden apps again. */
+    private boolean isSettings(AppEntry app) {
+        return app.packageName == null || app.packageName.equals(settingsPackage);
     }
 
     private void collect(PackageManager pm, String category, boolean useBanner,
@@ -164,7 +171,7 @@ public class MainActivity extends Activity {
     private void onLongPress(AppEntry app) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this,
                 android.R.style.Theme_DeviceDefault_Dialog_Alert);
-        if (app.packageName == null) {
+        if (isSettings(app)) {
             dialog.setTitle(R.string.unhide_title)
                     .setPositiveButton(R.string.unhide, (d, w) -> {
                         prefs.edit().remove(KEY_HIDDEN).apply();
