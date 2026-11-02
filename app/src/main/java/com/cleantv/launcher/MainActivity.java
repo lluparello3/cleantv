@@ -5,8 +5,11 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -37,7 +40,6 @@ import android.widget.Toast;
 
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -122,23 +124,35 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        greeting.setText(greetingForNow());
+        updateGreeting();
+        // Keep the greeting right when the home stays open across a slot change.
+        IntentFilter time = new IntentFilter(Intent.ACTION_TIME_TICK);
+        time.addAction(Intent.ACTION_TIME_CHANGED);
+        time.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        registerReceiver(clockTick, time);
         breathing.resume();
         reload();
     }
 
     @Override
     protected void onPause() {
+        unregisterReceiver(clockTick);
         breathing.pause();
         super.onPause();
     }
 
-    private int greetingForNow() {
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        if (hour >= 5 && hour < 12) return R.string.greeting_morning;
-        if (hour >= 12 && hour < 18) return R.string.greeting_afternoon;
-        if (hour >= 18 && hour < 23) return R.string.greeting_evening;
-        return R.string.greeting_night;
+    private final BroadcastReceiver clockTick = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGreeting();
+        }
+    };
+
+    private void updateGreeting() {
+        String text = Greetings.forNow();
+        if (!text.contentEquals(greeting.getText())) {
+            greeting.setText(text);
+        }
     }
 
     private float dp(float value) {

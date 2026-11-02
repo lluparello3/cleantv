@@ -24,6 +24,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
             android:gravity="bottom"
             android:orientation="horizontal">
 
@@ -31,14 +32,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:clipChildren="false"
                 android:orientation="vertical">
 
+                <!-- Padding (cancelled by negative margins) leaves room for the glow, so it isn't cut into a box -->
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="-32dp"
+                    android:layout_marginTop="-20dp"
+                    android:layout_marginBottom="-20dp"
                     android:fontFamily="@font/casa_script"
                     android:includeFontPadding="false"
+                    android:paddingStart="32dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="32dp"
+                    android:paddingBottom="20dp"
                     android:shadowColor="#99E0884A"
                     android:shadowRadius="28"
                     android:text="@string/home_title"
