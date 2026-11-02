@@ -3,6 +3,8 @@
     <string name="app_name">Casa Ciompi</string>
     <string name="home_title">Casa Ciompi</string>
     <string name="settings">Impostazioni</string>
+    <string name="redirect_service_label">Casa Ciompi come home</string>
+    <string name="redirect_service_description">Apre Casa Ciompi al posto della home di Google, all\'accensione e quando premi Home. Non legge il contenuto dello schermo.</string>
     <string name="hide_title">Nascondere %1$s?</string>
     <string name="hide_message">L\'app resta installata, sparisce solo dalla griglia. Tieni premuto OK su Impostazioni per mostrare di nuovo le app nascoste.</string>
     <string name="hide">Nascondi</string>
